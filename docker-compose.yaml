@@ -1,0 +1,18 @@
+services:
+  nextjs:
+    build: .
+    ports:
+      - "8081:8081"
+    command: ["sh", "-c", "npm run start"]
+    environment:
+      - NODE_ENV=production
+      - PORT=8081
+      - MONGODB_URI=mongodb+srv://websitedata0102:websitedata123@hikvision.jbxnk.mongodb.net/?retryWrites=true&w=majority&appName=hikvision
+      - NEXT_PUBLIC_API_URL=https://hikvisionuae.ae
+      - NEXT_PUBLIC_UPLOAD_DIR=/uploads
+      - JWT_SECRET=44c02613bd332db7e1aab9a04e5688008367129fd948f07825b17d556c07dae5640c3eb8b6f56e2ae8855f9e215890899c8e81f09dba2dcff5d38d7f0f5e3ea7hikisidb
+      - CLOUDINARY_CLOUD_NAME=websitedata123
+      - CLOUDINARY_API_KEY=418888735981265
+      - CLOUDINARY_API_SECRET=5KGo0fBnFqWOVtVNsugW3rDUT8o
+    volumes:      
+      - /app/node_modules

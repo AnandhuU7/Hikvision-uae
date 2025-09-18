@@ -1,41 +1,37 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignore node_modules (dependencies)
+node_modules
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
+# Ignore Next.js build output
+.next
+out
 
-/.idea/*
-!/.idea/runConfigurations
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Ignore logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# local env files
-.env*.local
+# Ignore TypeScript build files
+*.tsbuildinfo
 
-# vercel
-.vercel
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
 
+# Ignore package managers' lockfiles (optional, if using a single package manager)
+pnpm-lock.yaml
+yarn.lock
 
+# Ignore VSCode settings (optional)
+.vscode/
 
+# Ignore Turbo and cache files (optional)
+turbo
+.cache
 
+# Ignore Firebase files (if using Firebase)
+.firebase/
 
-/media
+# Ignore Storybook files (if using Storybook)
+.storybook/
+storybook-static/

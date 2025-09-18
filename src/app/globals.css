@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom hover effect for dropdown items */
+.nav-item-hover {
+  background: linear-gradient(to right, #FEE2E2 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.3s ease-out;
+}
+
+.nav-item-hover:hover {
+  background-position: left bottom;
+  color: #DC2626;
+}
+
+/* Smooth scrolling for AOS animations */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add these custom utilities for 3D card flip effect */
+.perspective {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
