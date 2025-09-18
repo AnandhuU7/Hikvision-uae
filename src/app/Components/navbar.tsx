@@ -420,51 +420,54 @@ const Navbar = () => {
               </Link>
             </motion.div>
 
-            {/* Search Input/Button */}
-            <div className="flex items-center">
-              {isSearchOpen ? (
-                <motion.form 
-                  onSubmit={handleSearch}
-                  className="flex items-center"
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: "auto" }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search products..."
-                    className="px-4 py-2 text-gray-700 bg-white rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                    autoFocus
-                  />
-                  <button 
-                    type="submit"
-                    className="px-3 py-2 bg-red-600 text-white rounded-r-lg hover:bg-red-700 transition-colors flex items-center justify-center"
-                    onClick={handleSearchButtonClick}
+            {/* Search Input/Button - Modified for better behavior on smaller screens */}
+            <div className="relative">
+              <motion.button 
+                className="p-2 rounded-full bg-gray-50 text-gray-500"
+                onClick={handleSearchButtonClick}
+                whileHover={{ 
+                  backgroundColor: "#fef2f2", 
+                  color: "#dc2626",
+                  scale: 1.1
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </motion.button>
+              
+              <AnimatePresence>
+                {isSearchOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="absolute top-full right-0 mt-2 w-80 bg-white rounded-xl shadow-lg py-2 px-3 border border-gray-100 z-20"
+                    style={{ boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </button>
-                </motion.form>
-              ) : (
-                <motion.button 
-                  className="p-2 rounded-full bg-gray-50 text-gray-500"
-                  onClick={handleSearchButtonClick}
-                  whileHover={{ 
-                    backgroundColor: "#fef2f2", 
-                    color: "#dc2626",
-                    scale: 1.1
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </motion.button>
-              )}
+                    <form onSubmit={handleSearch} className="flex">
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search products..."
+                        className="flex-1 px-4 py-2 text-gray-700 bg-white rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        autoFocus
+                      />
+                      <button 
+                        type="submit"
+                        className="px-4 py-2 bg-red-600 text-white rounded-r-lg hover:bg-red-700 transition-colors flex items-center justify-center"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
