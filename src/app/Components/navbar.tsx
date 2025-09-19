@@ -147,13 +147,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close search bar when navbar becomes scrolled
-  useEffect(() => {
-    if (isScrolled && isSearchOpen) {
-      setIsSearchOpen(false);
-    }
-  }, [isScrolled, isSearchOpen]);
-
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -264,26 +257,6 @@ const Navbar = () => {
       setSearchQuery('');
       setIsSearchOpen(false);
       setIsOpen(false);
-    }
-  }
-
-  // Handle search button click in desktop view
-  const handleSearchButtonClick = () => {
-    if (isSearchOpen) {
-      // If search is open and there's a query, submit the search
-      if (searchQuery.trim()) {
-        navigateToBestSearchResult(searchQuery.trim());
-        setSearchQuery('');
-        setIsSearchOpen(false);
-      } else {
-        // If search is open but no query, just close it
-        setIsSearchOpen(false);
-      }
-    } else {
-      // Only open the search bar if we are not scrolled
-      if (!isScrolled) {
-        setIsSearchOpen(true);
-      }
     }
   }
 
@@ -420,15 +393,19 @@ const Navbar = () => {
               </Link>
             </motion.div>
 
-            {/* Search Input/Button - Modified for better behavior on smaller screens */}
-            <div className="relative">
+            {/* Search Input/Button - Enhanced with border */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsSearchOpen(true)}
+              onMouseLeave={() => setIsSearchOpen(false)}
+            >
               <motion.button 
-                className="p-2 rounded-full bg-gray-50 text-gray-500"
-                onClick={handleSearchButtonClick}
+                className="p-2 rounded-full bg-gray-50 text-gray-500 border border-gray-200"
                 whileHover={{ 
                   backgroundColor: "#fef2f2", 
                   color: "#dc2626",
-                  scale: 1.1
+                  scale: 1.1,
+                  borderColor: "#fca5a5"
                 }}
                 transition={{ duration: 0.3 }}
               >
@@ -444,7 +421,11 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute top-full right-0 mt-2 w-80 bg-white rounded-xl shadow-lg py-2 px-3 border border-gray-100 z-20"
+                    className={`absolute top-full right-0 mt-2 w-80 ${
+                      isScrolled 
+                        ? 'bg-white/90 backdrop-blur-sm' 
+                        : 'bg-white'
+                    } rounded-xl shadow-lg border border-gray-200 z-20 overflow-hidden`}
                     style={{ boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
                   >
                     <form onSubmit={handleSearch} className="flex">
@@ -453,12 +434,12 @@ const Navbar = () => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search products..."
-                        className="flex-1 px-4 py-2 text-gray-700 bg-white rounded-l-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        className="flex-1 px-4 py-2 text-gray-700 bg-transparent focus:outline-none border-r border-gray-200"
                         autoFocus
                       />
                       <button 
                         type="submit"
-                        className="px-4 py-2 bg-red-600 text-white rounded-r-lg hover:bg-red-700 transition-colors flex items-center justify-center"
+                        className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center justify-center"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

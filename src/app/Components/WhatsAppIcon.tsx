@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
 
-
 const WhatsAppIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -160,12 +159,9 @@ const WhatsAppIcon = () => {
           e.stopPropagation();
           setIsOpen(true);
         }}
-        className="whatsapp-widget bg-green-600 p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 group relative hover:bg-green-500"
+        className="whatsapp-widget bg-green-600 p-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 relative hover:bg-green-500"
         aria-label="Chat on WhatsApp"
       >
-        <div className="absolute -top-12 right-0 bg-gray-900 px-4 py-2 rounded-lg shadow-lg text-sm font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          Chat with us!
-        </div>
         <svg 
           className="w-8 h-8 text-white"
           fill="currentColor"
@@ -179,4 +175,4 @@ const WhatsAppIcon = () => {
   );
 };
 
-export default WhatsAppIcon; 
+export default WhatsAppIcon;
