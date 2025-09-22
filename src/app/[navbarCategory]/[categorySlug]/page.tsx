@@ -224,7 +224,7 @@ const SubCategoriesGrid = ({ navbarCategory, categorySlug, subcategories, catego
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Explore Subcategories</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
@@ -329,8 +329,9 @@ export default function CategoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-red-25 to-red-50">
+      <>
         <Navbar />
+      <div className="min-h-screen bg-gradient-to-br from-white via-red-25 to-red-50">
         <Breadcrumb category={null} parentCategory={navbarCategory} />
         <div className="min-h-screen flex items-center justify-center">
           <div className="flex flex-col items-center gap-6">
@@ -350,18 +351,21 @@ export default function CategoryPage() {
         </div>
         <Footer />
       </div>
+      </>
     );
   }
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white via-red-25 to-red-50">
       <SEOHead category={category} parentCategory={navbarCategory} />
       <CategorySchema category={category} subcategories={subcategories} parentCategory={navbarCategory} />
-      <Navbar />
+      
       <Breadcrumb category={category} parentCategory={navbarCategory} />
       <main className="flex-grow">
         {/* Hero Section - Enhanced */}
-        <section className="relative py-16 md:py-24 overflow-hidden">
+        <section className="relative py-16 overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-white"></div>
@@ -420,25 +424,40 @@ export default function CategoryPage() {
                 HIKVISION UAE
               </motion.div>
               
-              <motion.h1 
-                className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6"
+              {/* Enhanced Category Name */}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
+                className="mb-6"
               >
-                <span className="block">{category?.name}</span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">Security Solutions</span>
-              </motion.h1>
+                <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-3">
+                  <span className="block">{category?.name}</span>
+                </h1>
+                <div className="relative inline-block">
+                  <span className="block text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">
+                    Security Solutions
+                  </span>
+                  <div className="absolute bottom-0 left-0 w-full h-3 bg-gradient-to-r from-red-400 to-red-600 rounded-full opacity-30 blur-md"></div>
+                </div>
+              </motion.div>
               
+              {/* Enhanced Category Description - Wider container and smaller font */}
               {category?.description && (
-                <motion.p 
-                className="text-xl md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed text-justify"
+                <motion.div 
+                  className="max-w-6xl mx-auto mb-10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  {category.description}
-                </motion.p>
+                  <div className="relative">
+                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed px-6 py-3 bg-white/70 backdrop-blur-sm rounded-xl border border-red-100 shadow-sm">
+                      {category.description}
+                    </p>
+                    <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-red-500 opacity-20 blur-sm"></div>
+                    <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-red-600 opacity-20 blur-sm"></div>
+                  </div>
+                </motion.div>
               )}
               
               <motion.div 
@@ -510,6 +529,7 @@ export default function CategoryPage() {
           
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
+              {/* Enhanced Category Name in Overview Section */}
               <motion.h2 
                 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
                 initial={{ opacity: 0, y: -20 }}
@@ -517,7 +537,14 @@ export default function CategoryPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                Premium {category?.name} Solutions
+                <span className="relative inline-block">
+                  <span className="relative z-10">Premium </span>
+                  <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">
+                    {category?.name}
+                  </span>
+                  <span className="relative z-10"> Solutions</span>
+                  <span className="absolute bottom-0 left-0 w-full h-3 bg-gradient-to-r from-red-400 to-red-600 rounded-full opacity-20 blur-md"></span>
+                </span>
               </motion.h2>
               <motion.div 
                 className="w-20 h-1 bg-gradient-to-r from-red-500 to-red-700 mx-auto mb-6"
@@ -641,5 +668,6 @@ export default function CategoryPage() {
       </main>
       <Footer />
     </div>
+    </>
   );
 }

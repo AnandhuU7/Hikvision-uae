@@ -2,10 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import Navbar from '../../../Components/navbar';
 import Footer from '../../../Components/footer';
 import Link from 'next/link';
 import Head from 'next/head';
+
+// Define itemVariants for animations
+const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: { duration: 0.5 }
+    }
+};
 
 interface Product {
     _id: string;
@@ -54,7 +65,7 @@ interface BreadcrumbProps {
 
 const Breadcrumb = ({ navbarCategory, category, subcategory }: BreadcrumbProps) => {
     return (
-        <nav className="bg-gradient-to-r from-gray-50 to-white border-b">
+        <nav className="bg-gradient-to-r from-gray-50 to-white">
             <div className="container mx-auto px-4 py-4">
                 <ol
                     className="flex flex-nowrap overflow-x-auto scrollbar-hide items-center space-x-2 text-sm"
@@ -63,9 +74,9 @@ const Breadcrumb = ({ navbarCategory, category, subcategory }: BreadcrumbProps) 
                     <li>
                         <Link
                             href="/"
-                            className="text-gray-600 hover:text-red-600 transition-colors duration-300 flex items-center"
+                            className="text-gray-600 hover:text-red-600 transition-colors duration-300 flex items-center group"
                         >
-                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-4 h-4 mr-1 group-hover:animate-pulse" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                             </svg>
                             Home
@@ -75,28 +86,55 @@ const Breadcrumb = ({ navbarCategory, category, subcategory }: BreadcrumbProps) 
                     <li>
                         <Link
                             href={`/${navbarCategory.slug}`}
-                            className="text-gray-500 hover:text-red-600 transition-colors whitespace-nowrap"
+                            className="text-gray-500 hover:text-red-600 transition-colors whitespace-nowrap group relative"
                         >
                             {navbarCategory.name}
+                            <motion.span 
+                                className="absolute bottom-0 left-0 h-0.5 bg-red-600"
+                                initial={{ width: 0 }}
+                                whileHover={{ width: "100%" }}
+                                transition={{ duration: 0.3 }}
+                            />
                         </Link>
                     </li>
                     <li><span className="text-gray-400 mx-2">›</span></li>
                     <li>
                         <Link
                             href={`/${navbarCategory.slug}/${category.slug}`}
-                            className="text-gray-500 hover:text-red-600 transition-colors whitespace-nowrap"
+                            className="text-gray-500 hover:text-red-600 transition-colors whitespace-nowrap group relative"
                         >
                             {category.name}
+                            <motion.span 
+                                className="absolute bottom-0 left-0 h-0.5 bg-red-600"
+                                initial={{ width: 0 }}
+                                whileHover={{ width: "100%" }}
+                                transition={{ duration: 0.3 }}
+                            />
                         </Link>
                     </li>
                     <li><span className="text-gray-400 mx-2">›</span></li>
                     <li>
-                        <span className="text-red-600 font-medium whitespace-nowrap">
+                        <span className="text-red-600 font-medium whitespace-nowrap flex items-center">
                             {subcategory.name || 'Loading...'}
+                            <motion.span 
+                                className="ml-2 w-2 h-2 bg-red-600 rounded-full"
+                                animate={{ scale: [1, 1.5, 1] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                            />
                         </span>
                     </li>
                 </ol>
             </div>
+            {/* Custom CSS to hide scrollbar while maintaining scrollability */}
+            <style jsx>{`
+                .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                }
+                .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
         </nav>
     );
 };
@@ -228,9 +266,9 @@ const SubcategorySchema = ({
                 },
                 {
                     "@type": "ListItem",
-                    "position": 4,
-                    "name": subcategory?.name,
-                    "item": `${baseUrl}/${navbarCategoryName?.name?.toLowerCase()}/${categoryName?.name?.toLowerCase()}/${subcategory?.name?.toLowerCase()}`
+                    position: 4,
+                    name: subcategory?.name,
+                    item: `${baseUrl}/${navbarCategoryName?.name?.toLowerCase()}/${categoryName?.name?.toLowerCase()}/${subcategory?.name?.toLowerCase()}`
                 }
             ]
         }
@@ -308,10 +346,44 @@ export default function SubCategoryPage() {
         return (
             <div>
                 <Navbar />
-                <div className="min-h-screen flex items-center justify-center">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-red-600"></div>
-                        <p className="text-gray-600 animate-pulse">Loading products...</p>
+                <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-red-50">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="relative">
+                            <motion.div 
+                                className="w-20 h-20 border-4 border-gray-200 border-t-red-600 rounded-full"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            />
+                            <motion.div 
+                                className="absolute inset-0 w-20 h-20 border-4 border-transparent border-t-red-400 rounded-full"
+                                animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                            />
+                        </div>
+                        <motion.p 
+                            className="text-gray-600 flex items-center gap-2"
+                            animate={{ opacity: [0.7, 1, 0.7] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                            <span>Loading products</span>
+                            <span className="flex gap-1">
+                                <motion.span 
+                                    className="w-1 h-1 bg-red-600 rounded-full"
+                                    animate={{ y: [0, -5, 0] }}
+                                    transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0 }}
+                                />
+                                <motion.span 
+                                    className="w-1 h-1 bg-red-600 rounded-full"
+                                    animate={{ y: [0, -5, 0] }}
+                                    transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.15 }}
+                                />
+                                <motion.span 
+                                    className="w-1 h-1 bg-red-600 rounded-full"
+                                    animate={{ y: [0, -5, 0] }}
+                                    transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.3 }}
+                                />
+                            </span>
+                        </motion.p>
                     </div>
                 </div>
                 <Footer />
@@ -323,8 +395,33 @@ export default function SubCategoryPage() {
         return (
             <div>
                 <Navbar />
-                <div className="min-h-screen flex items-center justify-center">
-                    <div className="text-red-600">Error: {error}</div>
+                <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-red-50">
+                    <motion.div 
+                        className="text-center p-8 bg-white rounded-2xl shadow-lg max-w-md border border-red-100"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <motion.div 
+                            className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 0.5, repeat: 1 }}
+                        >
+                            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </motion.div>
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">Oops! Something went wrong</h3>
+                        <p className="text-red-600 mb-4">Error: {error}</p>
+                        <motion.button 
+                            onClick={() => window.location.reload()} 
+                            className="px-6 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors shadow-md"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Try Again
+                        </motion.button>
+                    </motion.div>
                 </div>
                 <Footer />
             </div>
@@ -346,97 +443,250 @@ export default function SubCategoryPage() {
                 categoryName={categoryName}
             />
             <Navbar />
-            <div className="w-full border-b bg-white/80 backdrop-blur sticky top-0 z-20">
-                <Breadcrumb
-                    navbarCategory={{
-                        name: navbarCategoryName?.name || "",
-                        slug: navbarCategory,
-                    }}
-                    category={{
-                        name: categoryName?.name || "",
-                        slug: categorySlug,
-                    }}
-                    subcategory={{
-                        name: subcategory?.name || "",
-                        slug: subcategorySlug,
-                    }}
-                />
-            </div>
+            <Breadcrumb
+                navbarCategory={{
+                    name: navbarCategoryName?.name || "",
+                    slug: navbarCategory,
+                }}
+                category={{
+                    name: categoryName?.name || "",
+                    slug: categorySlug,
+                }}
+                subcategory={{
+                    name: subcategory?.name || "",
+                    slug: subcategorySlug,
+                }}
+            />
             <main className="flex-grow">
                 {/* Hero Section */}
-                <section className="relative bg-gradient-to-br from-white via-red-50 to-red-100 py-10 px-4 sm:px-0 border-b border-red-200">
-                    <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
-                        <div className="mb-4">
-                            <span className="inline-block px-5 py-1.5 bg-red-600 text-white rounded-full text-xs font-bold tracking-widest uppercase shadow-lg">
+                <section className="relative bg-gradient-to-br from-white via-red-50 to-red-100 py-16 px-4 sm:px-0 border-b border-red-200 overflow-hidden">
+                    {/* Background decorative elements */}
+                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                        <motion.div 
+                            className="absolute -top-40 -right-40 w-80 h-80 bg-red-200 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+                            animate={{ 
+                                x: [0, 30, 0, -30, 0],
+                                y: [0, -50, 0, 20, 0],
+                                scale: [1, 1.1, 1, 0.9, 1]
+                            }}
+                            transition={{ 
+                                duration: 15, 
+                                repeat: Infinity,
+                                repeatType: "reverse"
+                            }}
+                        />
+                        <motion.div 
+                            className="absolute -bottom-40 -left-40 w-80 h-80 bg-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+                            animate={{ 
+                                x: [0, -30, 0, 30, 0],
+                                y: [0, 20, 0, -50, 0],
+                                scale: [1, 0.9, 1, 1.1, 1]
+                            }}
+                            transition={{ 
+                                duration: 18, 
+                                repeat: Infinity,
+                                repeatType: "reverse"
+                            }}
+                        />
+                        <motion.div 
+                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-red-100 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+                            animate={{ 
+                                x: [0, 20, 0, -20, 0],
+                                y: [0, -30, 0, 30, 0],
+                                scale: [1, 1.05, 1, 0.95, 1]
+                            }}
+                            transition={{ 
+                                duration: 20, 
+                                repeat: Infinity,
+                                repeatType: "reverse"
+                            }}
+                        />
+                    </div>
+                    
+                    <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
+                        <motion.div 
+                            className="mb-6"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <motion.span 
+                                className="inline-block px-6 py-2 bg-red-600 text-white rounded-full text-xs font-bold tracking-widest uppercase shadow-lg"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
                                 Hikvision UAE
-                            </span>
-                        </div>
-                        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-red-700 mb-4 drop-shadow">
+                            </motion.span>
+                        </motion.div>
+                        <motion.h1 
+                            className="text-4xl sm:text-5xl font-extrabold tracking-tight text-red-700 mb-6 drop-shadow-md"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                        >
                             {subcategory?.name} <span className="text-black">Solutions</span>
-                        </h1>
+                        </motion.h1>
                         {subcategory?.description && (
-                            <p className="text-base sm:text-lg text-gray-700 font-light w-full max-w-5xl mx-auto mb-6">
+                            <motion.p 
+                                className="text-lg sm:text-xl text-gray-700 font-medium w-full max-w-4xl mx-auto mb-8"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                            >
                                 {subcategory.description}
-                            </p>
+                            </motion.p>
                         )}
-                        <div className="flex justify-center">
-                            <span className="inline-block w-24 h-1 rounded-full bg-gradient-to-r from-red-600 via-red-400 to-red-600"></span>
-                        </div>
+                        <motion.div 
+                            className="flex justify-center"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            <div className="relative">
+                                <span className="inline-block w-32 h-1.5 rounded-full bg-gradient-to-r from-red-600 via-red-400 to-red-600"></span>
+                                <motion.span 
+                                    className="absolute top-0 left-0 w-32 h-1.5 rounded-full bg-gradient-to-r from-red-600 via-red-400 to-red-600"
+                                    animate={{ opacity: [0.3, 0.8, 0.3] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                />
+                            </div>
+                        </motion.div>
+                        
+                        {/* Decorative elements */}
+                        <motion.div 
+                            className="flex justify-center mt-10 space-x-4"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                        >
+                            <motion.span 
+                                className="w-3 h-3 rounded-full bg-red-600"
+                                animate={{ scale: [1, 1.5, 1] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                            />
+                            <motion.span 
+                                className="w-3 h-3 rounded-full bg-red-400"
+                                animate={{ scale: [1, 1.5, 1] }}
+                                transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                            />
+                            <motion.span 
+                                className="w-3 h-3 rounded-full bg-red-600"
+                                animate={{ scale: [1, 1.5, 1] }}
+                                transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
+                            />
+                        </motion.div>
                     </div>
                     {subcategory?.image && (
-                        <img
+                        <motion.img
                             src={subcategory.image}
                             alt={subcategory.name}
-                            className="absolute right-10 top-1/2 -translate-y-1/2 w-52 h-52 object-contain opacity-10 pointer-events-none select-none hidden md:block"
+                            className="absolute right-10 top-1/2 -translate-y-1/2 w-64 h-64 object-contain opacity-10 pointer-events-none select-none hidden lg:block"
+                            animate={{ y: ["-50%", "-55%", "-50%"] }}
+                            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse" }}
                         />
                     )}
                 </section>
 
                 {/* Products Grid */}
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <motion.div 
+                        className="text-center mb-16"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Product Range</h2>
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            Explore our comprehensive selection of {subcategory?.name} solutions designed to meet your security needs
+                        </p>
+                    </motion.div>
+                    
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {products.map((product) => (
-                            <Link
+                        {products.map((product, index) => (
+                            <motion.div
                                 key={product._id}
-                                href={`/${navbarCategory}/${categorySlug}/${subcategorySlug}/${product.slug}`}
-                                className="group"
+                                variants={itemVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                className="bg-white rounded-lg shadow-md overflow-hidden relative border-2 border-transparent group"
+                                whileHover={{ 
+                                    y: -10,
+                                    scale: 1.03,
+                                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                                    borderColor: "#ef4444"
+                                }}
+                                whileTap={{ 
+                                    borderColor: "#ef4444"
+                                }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
                             >
-                                <div className="relative bg-white/90 border border-red-200 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:border-red-500 flex flex-col h-full">
-                                    <div className="relative h-52 flex items-center justify-center bg-gradient-to-t from-red-50 via-white to-white rounded-t-3xl">
-                                        {product.image1 ? (
-                                            <img
-                                                src={
-                                                    product.image1.startsWith("http")
-                                                        ? product.image1
-                                                        : `${process.env.NEXT_PUBLIC_API_URL}${product.image1}`
-                                                }
-                                                alt={product.name}
-                                                className="h-32 w-32 object-contain transition-transform duration-300 group-hover:scale-105"
-                                                onError={(e) => {
-                                                    e.currentTarget.src = "/placeholder.jpg";
-                                                }}
-                                            />
-                                        ) : (
-                                            <span className="text-3xl font-bold text-red-600">{product.name}</span>
-                                        )}
-                                        <div className="absolute top-4 right-4 w-10 h-10 bg-red-600/10 rounded-full blur-sm"></div>
+                                <Link
+                                    href={`/${navbarCategory}/${categorySlug}/${subcategorySlug}/${product.slug}`}
+                                    className="block h-full"
+                                    aria-label={`View details for ${product.name}`}
+                                >
+                                    <div className="relative p-0 flex justify-center items-center w-full h-48 sm:h-56 overflow-hidden">
+                                        <motion.img
+                                            src={
+                                                product.image1.startsWith("http")
+                                                    ? product.image1
+                                                    : `${process.env.NEXT_PUBLIC_API_URL}${product.image1}`
+                                            }
+                                            alt={product.name}
+                                            className="w-auto h-full max-h-full object-contain p-3 sm:p-4"
+                                            whileHover={{ scale: 1.05 }}
+                                            transition={{ duration: 0.3 }}
+                                            onError={(e) => {
+                                                e.currentTarget.src = "/placeholder.jpg";
+                                            }}
+                                        />
                                     </div>
-                                    <div className="p-7 flex flex-col items-center flex-1">
-                                        <h2 className="text-xl font-bold text-red-700 mb-2 text-center group-hover:text-red-800 transition-colors">
+                                    
+                                    <div className="p-4 md:p-6 flex-grow flex flex-col">
+                                        <h2 className="text-lg md:text-xl font-bold text-red-700 mb-2 md:mb-3 text-center group-hover:text-red-800 transition-colors duration-300 line-clamp-2">
                                             {product.name}
                                         </h2>
-                                        <p className="text-gray-600 text-base text-center mb-4 line-clamp-2">
+                                        <p className="text-gray-600 text-sm text-center mb-4 md:mb-6 flex-grow line-clamp-3 leading-relaxed">
                                             {product.description}
                                         </p>
-                                        <button className="mt-auto px-7 py-2 rounded-full bg-red-600 text-white font-semibold shadow hover:bg-red-700 transition-colors">
-                                            View Details
-                                        </button>
+                                        <div className="flex justify-center mt-auto">
+                                            <button className="px-6 md:px-8 py-2 md:py-3 rounded-full bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold shadow-lg group-hover:shadow-xl group-hover:from-red-700 group-hover:to-red-800 transition-all duration-300 transform group-hover:scale-105 flex items-center gap-2 text-sm md:text-base">
+                                                View Details
+                                                <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-red-600/20 via-transparent to-red-600/20"></div>
-                                </div>
-                            </Link>
+                                </Link>
+                            </motion.div>
                         ))}
                     </div>
+                    
+                    {products.length === 0 && (
+                        <motion.div 
+                            className="text-center py-16"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <motion.div 
+                                className="inline-block p-4 bg-red-100 rounded-full mb-4"
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                            >
+                                <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                            </motion.div>
+                            <h3 className="text-2xl font-bold text-gray-800 mb-2">No products found</h3>
+                            <p className="text-gray-600 max-w-md mx-auto">
+                                We couldn't find any products in this category. Please check back later or browse other categories.
+                            </p>
+                        </motion.div>
+                    )}
                 </section>
             </main>
             <Footer />

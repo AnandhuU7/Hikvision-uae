@@ -52,7 +52,7 @@ const DropdownMenu = memo(function DropdownMenu({
       onMouseLeave={() => onOpen(false)}
     >
       <motion.button
-        className="flex items-center text-gray-800 font-medium text-base lg:text-lg"
+        className="flex items-center text-gray-800 font-medium text-base xl:text-lg"
         aria-haspopup="true"
         aria-expanded={active}
         whileHover={{ y: -2 }}
@@ -264,7 +264,7 @@ const Navbar = () => {
     <header 
       className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/90 backdrop-blur-sm shadow-xl lg:max-w-7xl lg:mx-auto lg:rounded-2xl' 
+          ? 'bg-white/90 backdrop-blur-sm shadow-xl xl:max-w-7xl xl:mx-auto xl:rounded-2xl' 
           : 'bg-transparent w-full'
       }`} 
       ref={navRef}
@@ -319,11 +319,11 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation - Only show on larger screens */}
-          <div className="hidden lg:flex flex-1 justify-center items-center space-x-6 lg:space-x-10">
+          <div className="hidden xl:flex flex-1 justify-center items-center space-x-6 xl:space-x-10">
             <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.3 }}>
               <Link
                 href="/"
-                className={`text-gray-800 font-medium text-base lg:text-lg relative ${pathname === '/' ? 'text-red-600' : ''}`}
+                className={`text-gray-800 font-medium text-base xl:text-lg relative ${pathname === '/' ? 'text-red-600' : ''}`}
               >
                 <motion.span 
                   className="relative px-3 py-1 rounded-lg"
@@ -373,7 +373,7 @@ const Navbar = () => {
             <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.3 }}>
               <Link
                 href="/About"
-                className={`text-gray-800 font-medium text-base lg:text-lg relative ${pathname === '/About' ? 'text-red-600' : ''}`}
+                className={`text-gray-800 font-medium text-base xl:text-lg relative ${pathname === '/About' ? 'text-red-600' : ''}`}
               >
                 <motion.span 
                   className="relative px-3 py-1 rounded-lg"
@@ -463,7 +463,7 @@ const Navbar = () => {
 
           {/* Mobile menu button - Show on tablet and mobile */}
           <motion.button
-            className="lg:hidden p-2 rounded-full border-2 border-red-500 bg-white shadow-sm"
+            className="xl:hidden p-2 rounded-full border-2 border-red-500 bg-white shadow-sm"
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
@@ -496,7 +496,7 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="lg:hidden fixed inset-0 z-[9999]"
+              className="xl:hidden fixed inset-0 z-[9999]"
               style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
             >
               {/* Overlay */}
