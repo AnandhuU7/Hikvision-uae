@@ -306,14 +306,11 @@ const Navbar = () => {
                   alt="Hikvision Dubai"
                   width={200}
                   height={50}
-                  className={`h-12 w-auto object-contain transition-all duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+                  className="h-12 w-auto object-contain"
                   priority
                   quality={100}
                   onLoad={() => setIsLoading(false)}
                 />
-                {isLoading && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-300 animate-pulse rounded-2xl" />
-                )}
               </div>
             </Link>
           </div>
