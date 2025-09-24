@@ -63,22 +63,22 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div className="relative z-10 pt-8 pb-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8">
               
-              {/* Brand & Social */}
-              <div className="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col gap-4">
+              {/* Brand & Social - Takes 3 columns */}
+              <div className="col-span-1 sm:col-span-2 lg:col-span-3 flex flex-col gap-4 text-center lg:text-left">
                 <div className="space-y-3">
                   <span className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-700 tracking-widest uppercase">
                     Hikvision UAE
                   </span>
-                  <div className="w-12 h-0.5 bg-gradient-to-r from-red-500 to-red-700 rounded-full"></div>
+                  <div className="w-12 h-0.5 bg-gradient-to-r from-red-500 to-red-700 rounded-full mx-auto lg:mx-0"></div>
                   <p className="text-neutral-500 text-sm leading-relaxed max-w-xs">
                     Trusted security partner in Dubai & UAE.<br />
                     <span className="text-red-600 font-medium">Hikvision authorized distributor.</span>
                   </p>
                 </div>
                 
-                <div className="flex space-x-3">
+                <div className="flex space-x-3 justify-center lg:justify-start">
                   <a 
                     href="https://www.facebook.com/hikvisionuae" 
                     target="_blank" 
@@ -104,10 +104,10 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Quick Links */}
-              <div className="space-y-4">
+              {/* Quick Links - Takes 2 columns */}
+              <div className="lg:col-span-2 space-y-4 text-center lg:text-left">
                 <div>
-                  <h3 className="text-red-600 font-bold text-base mb-3 flex items-center">
+                  <h3 className="text-red-600 font-bold text-base mb-3 flex items-center justify-center lg:justify-start">
                     <div className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></div>
                     Quick Links
                   </h3>
@@ -120,7 +120,7 @@ const Footer = () => {
                       <li key={link.href}>
                         <Link 
                           href={link.href} 
-                          className="group flex items-center text-neutral-600 hover:text-red-600 transition-all duration-300 text-sm"
+                          className="group flex items-center justify-center lg:justify-start text-neutral-600 hover:text-red-600 transition-all duration-300 text-sm whitespace-nowrap"
                         >
                           <span className="w-0 group-hover:w-1.5 h-0.5 bg-red-500 rounded-full transition-all duration-300 mr-0 group-hover:mr-2"></span>
                           {link.label}
@@ -131,10 +131,10 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Technologies */}
-              <div className="space-y-4">
+              {/* Technologies - Takes 2 columns */}
+              <div className="lg:col-span-2 space-y-4 text-center lg:text-left">
                 <div>
-                  <h3 className="text-red-600 font-bold text-base mb-3 flex items-center">
+                  <h3 className="text-red-600 font-bold text-base mb-3 flex items-center justify-center lg:justify-start">
                     <div className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></div>
                     Technologies
                   </h3>
@@ -148,7 +148,7 @@ const Footer = () => {
                       <li key={link.href}>
                         <Link 
                           href={link.href} 
-                          className="group flex items-center text-neutral-600 hover:text-red-600 transition-all duration-300 text-sm"
+                          className="group flex items-center justify-center lg:justify-start text-neutral-600 hover:text-red-600 transition-all duration-300 text-sm whitespace-nowrap"
                         >
                           <span className="w-0 group-hover:w-1.5 h-0.5 bg-red-500 rounded-full transition-all duration-300 mr-0 group-hover:mr-2"></span>
                           {link.label}
@@ -159,11 +159,39 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Newsletter & Contact */}
-              <div className="space-y-4">
+              {/* Solutions - Takes 2 columns */}
+              <div className="lg:col-span-2 space-y-4 text-center lg:text-left">
+                <div>
+                  <h3 className="text-red-600 font-bold text-base mb-3 flex items-center justify-center lg:justify-start">
+                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></div>
+                    Solutions
+                  </h3>
+                  <ul className="space-y-2">
+                    {[
+                      { href: "/Manufacturing", label: "Manufacturing" },
+                      { href: "/Retail", label: "Retail" },
+                      { href: "/Healthcare", label: "Healthcare" },
+                      { href: "/Education", label: "Education" }
+                    ].map((link) => (
+                      <li key={link.href}>
+                        <Link 
+                          href={link.href} 
+                          className="group flex items-center justify-center lg:justify-start text-neutral-600 hover:text-red-600 transition-all duration-300 text-sm whitespace-nowrap"
+                        >
+                          <span className="w-0 group-hover:w-1.5 h-0.5 bg-red-500 rounded-full transition-all duration-300 mr-0 group-hover:mr-2"></span>
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Newsletter & Contact - Takes 3 columns */}
+              <div className="lg:col-span-3 space-y-4 text-center lg:text-left">
                 {/* Newsletter Card */}
                 <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 backdrop-blur-sm rounded-xl p-4 border border-neutral-200 shadow-sm">
-                  <div className="flex items-center mb-3">
+                  <div className="flex items-center justify-center lg:justify-start mb-3">
                     <div className="w-6 h-6 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center mr-2">
                       <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -185,20 +213,20 @@ const Footer = () => {
 
                 {/* Contact Info */}
                 <div className="space-y-3" itemScope itemType="https://schema.org/LocalBusiness">
-                  <div className="flex items-start space-x-2 group">
+                  <div className="flex items-start space-x-2 group justify-center lg:justify-start">
                     <div className="w-6 h-6 bg-neutral-100 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-red-50 transition-colors">
                       <svg className="w-3 h-3 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </div>
-                    <div className="text-neutral-600 text-xs leading-relaxed" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                    <div className="text-neutral-600 text-xs leading-relaxed text-center lg:text-left" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
                       <span itemProp="streetAddress">No. 12, Al khabaisi, Abu hail</span>,<br/>
                       <span itemProp="addressLocality">Dubai</span>, <span itemProp="addressCountry">UAE</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2 group">
+                  <div className="flex items-center space-x-2 group justify-center lg:justify-start">
                     <div className="w-6 h-6 bg-neutral-100 rounded-lg flex items-center justify-center group-hover:bg-red-50 transition-colors">
                       <svg className="w-3 h-3 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -209,7 +237,7 @@ const Footer = () => {
                     </a>
                   </div>
 
-                  <div className="flex items-center space-x-2 group">
+                  <div className="flex items-center space-x-2 group justify-center lg:justify-start">
                     <div className="w-6 h-6 bg-neutral-100 rounded-lg flex items-center justify-center group-hover:bg-red-50 transition-colors">
                       <svg className="w-3 h-3 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

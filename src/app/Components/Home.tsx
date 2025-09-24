@@ -436,7 +436,7 @@ const containerVariants = {
   }
 };
 
-// Banner Component
+// Banner Component - FIXED FOR LAPTOP RESPONSIVENESS
 function Banner() {
   const [isHovered, setIsHovered] = useState(false);
   const controls = useAnimation();
@@ -486,7 +486,7 @@ function Banner() {
   return (
     <motion.div
       ref={ref}
-      className="relative min-h-[70vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[40vh] lg:min-h-[42vh] xl:min-h-[65vh] flex items-center justify-center overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #ffffff 0%, #f9f9ff 100%)"
       }}
@@ -528,7 +528,7 @@ function Banner() {
         }}
       />
 
-      <div className="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between w-full max-w-6xl mx-auto px-3 sm:px-6 py-8 sm:py-20 gap-6 sm:gap-10">
+      <div className="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between w-full max-w-6xl mx-auto px-3 sm:px-6 py-4 sm:py-8 md:py-2 lg:py-6 xl:py-12 gap-4 sm:gap-10">
         {/* Left: Text & CTA */}
         <motion.div
           className="flex-1 flex flex-col items-center lg:items-start justify-center max-w-xl text-center lg:text-left"
@@ -772,7 +772,7 @@ function TechnologyGrid() {
   ];
 
   return (
-    <section className="py-20 sm:py-32 bg-white overflow-hidden">
+    <section className="py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         <motion.h1 
           className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-12 leading-tight tracking-tight"
@@ -804,59 +804,55 @@ function TechnologyGrid() {
 }
 
 // TextImage Component
+// TextImage Component - iPad Pro Responsive Version
 function TextImage() {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-8">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center gap-14">
+        <div className="flex flex-col xl:flex-row items-center gap-8 xl:gap-14">
           {/* Image Section */}
-          <div
-            className="w-full md:w-1/2 flex justify-center"
-          >
-            <div className="relative rounded-3xl overflow-hidden border-4 border-red-100 group transition-all duration-300 hover:scale-[1.03]">
+          <div className="w-full xl:w-1/2 flex justify-center">
+            <div className="relative rounded-3xl overflow-hidden border-4 border-red-100 group transition-all duration-300 hover:scale-[1.03] max-w-full">
               <Image
                 src={banner2.src}
                 alt="Hikvision Security Solutions"
                 width={1000}
                 height={450}
-                className="w-full h-[350px] object-cover rounded-2xl"
+                className="w-full max-w-[500px] sm:max-w-[600px] md:max-w-[650px] lg:max-w-[700px] xl:max-w-full h-[250px] xs:h-[300px] sm:h-[350px] md:h-[380px] lg:h-[400px] xl:h-[350px] object-cover rounded-2xl"
                 priority
                 quality={90}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 70vw, (max-width: 1280px) 60vw, 50vw"
               />
             </div>
           </div>
 
           {/* Content Section */}
-          <div
-            className="w-full md:w-1/2 space-y-7 md:ml-[-96px]"
-          >
-            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">
+          <div className="w-full xl:w-1/2 space-y-6 xl:space-y-7 xl:ml-[-96px] max-w-none xl:max-w-xl">
+            <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] lg:text-5xl xl:text-5xl font-extrabold leading-tight mb-4">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-400 to-black">Hikvision UAE</span>{' '}
               <span className="text-black">Security Solutions</span>
             </h2>
-            <p className="text-lg text-gray-800 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-lg text-gray-800 leading-relaxed">
               Experience <span className="text-red-600 font-semibold">cutting-edge security technology</span> with Hikvision in the UAE. We provide comprehensive security solutions featuring advanced surveillance systems, smart cameras, and integrated security platforms designed for the unique needs of UAE businesses and properties.
             </p>
-            <div
-              className="bg-white/80 border border-red-100 rounded-2xl shadow p-6"
-            >
-              <p className="text-black font-semibold mb-3">Choose Hikvision UAE for:</p>
-              <ul className="list-none space-y-3">
+            <div className="bg-white/80 border border-red-100 rounded-2xl shadow p-4 sm:p-6 lg:p-7 xl:p-6">
+              <p className="text-black font-semibold mb-3 text-base lg:text-lg xl:text-base">Choose Hikvision UAE for:</p>
+              <ul className="list-none space-y-2 sm:space-y-3 lg:space-y-4 xl:space-y-3">
                 <li className="flex items-center gap-3">
-                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400" />
-                  <span>Complete range of Hikvision products</span>
+                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400 flex-shrink-0" />
+                  <span className="text-sm sm:text-base lg:text-lg xl:text-base">Complete range of Hikvision products</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400" />
-                  <span>Professional system integration</span>
+                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400 flex-shrink-0" />
+                  <span className="text-sm sm:text-base lg:text-lg xl:text-base">Professional system integration</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400" />
-                  <span>Local technical support</span>
+                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400 flex-shrink-0" />
+                  <span className="text-sm sm:text-base lg:text-lg xl:text-base">Local technical support</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400" />
-                  <span>Customized security solutions</span>
+                  <span className="inline-block w-3 h-3 rounded-full bg-gradient-to-br from-red-600 to-red-400 flex-shrink-0" />
+                  <span className="text-sm sm:text-base lg:text-lg xl:text-base">Customized security solutions</span>
                 </li>
               </ul>
             </div>
@@ -870,7 +866,7 @@ function TextImage() {
 // Customer Support Component
 function CustomerSupport() {
   return (
-    <section className="py-20 px-4 bg-white min-h-[80vh] relative overflow-hidden">
+    <section className="py-8 px-4 bg-white  relative overflow-hidden">
       <div className="container mx-auto max-w-4xl relative z-10">
         <div className="text-center mb-14">
           <span className="inline-block bg-gradient-to-r from-red-700 to-red-700 text-white px-6 py-2 rounded-full text-xs font-bold tracking-widest shadow mb-6 uppercase">
@@ -918,7 +914,7 @@ function CustomerSupport() {
                 4
               </div>
               <h3 className="text-xl font-bold mb-2 text-red-600">Follow Up</h3>
-              <p className="text-gray-700">We check in to ensure you’re satisfied and your system is secure.</p>
+              <p className="text-gray-700">We check in to ensure you're satisfied and your system is secure.</p>
             </div>
           </div>
         </div>
@@ -943,7 +939,7 @@ function CustomerSupport() {
 // Why Choose Us Component
 function WhyChooseUs() {
   return (
-    <section className="py-20 px-4 bg-gray-50">
+    <section className="py-12 px-4 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">
@@ -998,23 +994,160 @@ function WhyChooseUs() {
   );
 }
 
-// Looking Component
+// Looking Component - Enhanced with Framer Motion
 function Looking() {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const highlightVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-4xl font-bold text-center mb-8">
-        <span className="text-black">Professional </span>
-        <span className="text-red-700">Hikvision Security Solutions in UAE</span>
-      </h1>
+    <motion.div 
+      ref={ref}
+      className="container mx-auto px-4 py-8 lg:pt-16 lg:pb-8 lg:mt-4 max-w-4xl"
+      variants={containerVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+    >
+      <motion.h1 
+        className="text-4xl font-bold text-center mb-8"
+        variants={itemVariants}
+      >
+        <motion.span 
+          className="text-black"
+          variants={itemVariants}
+        >
+          Professional 
+        </motion.span>
+        <motion.span 
+          className="text-red-700"
+          variants={highlightVariants}
+        >
+          {" "}Hikvision Security Solutions in UAE
+        </motion.span>
+      </motion.h1>
       
-      <h2 className="text-2xl font-semibold mb-6">
-        Authorized Hikvision Distributor - UAE
-      </h2>
+      <motion.h2 
+        className="text-2xl font-semibold mb-6 text-center"
+        variants={itemVariants}
+      >
+        <motion.span 
+          className="inline-block bg-gradient-to-r from-red-700 to-red-500 bg-clip-text text-transparent "
+          variants={highlightVariants}
+        >
+          Authorized Hikvision Distributor - UAE
+        </motion.span>
+      </motion.h2>
       
-      <p className="text-lg leading-relaxed">
-        As a trusted Hikvision distributor in UAE, we offer comprehensive security solutions and professional-grade surveillance equipment. Our extensive inventory includes the latest Hikvision products at competitive prices. For detailed product information and pricing, please contact our technical sales team at <a href="tel:+971 50 989 3134" className="text-blue-600 hover:underline">+971 50 989 3134</a>. Our experts will assist you in selecting the right security solutions tailored to your requirements.
-      </p>
-    </div>
+      <motion.div 
+        className="bg-white/80 backdrop-blur-sm border border-red-100 rounded-2xl shadow-lg p-6 relative overflow-hidden"
+        variants={itemVariants}
+        whileHover={{ 
+          y: -5,
+          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Decorative elements */}
+        <motion.div 
+          className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full -mr-16 -mt-16"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-0 left-0 w-24 h-24 bg-red-500/10 rounded-full -ml-12 -mb-12"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            rotate: [0, -10, 0]
+          }}
+          transition={{ 
+            duration: 7, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 0.5
+          }}
+        />
+        
+        <motion.p 
+          className="text-lg leading-relaxed relative z-10"
+          variants={itemVariants}
+        >
+          As a trusted <motion.span 
+            className="font-semibold text-red-600"
+            variants={highlightVariants}
+          >
+            Hikvision distributor in UAE
+          </motion.span>, we offer comprehensive security solutions and professional-grade surveillance equipment. Our extensive inventory includes the latest Hikvision products at competitive prices. For detailed product information and pricing, please contact our technical sales team at{" "}
+          <motion.a 
+            href="tel:+971 50 989 3134" 
+            className="text-blue-600 hover:underline inline-flex items-center gap-1"
+            variants={highlightVariants}
+            whileHover={{ 
+              scale: 1.05,
+              color: "#dc2626"
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            +971 50 989 3134
+            <motion.svg 
+              className="w-4 h-4" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth={2.2} 
+              viewBox="0 0 24 24"
+              whileHover={{ x: 3 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </motion.svg>
+          </motion.a>
+          . Our experts will assist you in selecting the right security solutions tailored to your requirements.
+        </motion.p>
+      </motion.div>
+    </motion.div>
   );
 }
 
